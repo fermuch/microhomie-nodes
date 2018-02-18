@@ -16,23 +16,20 @@ class Reed(HomieNode):
         self.last_status = None
 
     def __str__(self):
-        status = 'open' if self.is_open() else 'closed'
-        return 'Door is {}'.format(status)
+        return 'Door is {}'.format(self.reed_status())
 
-    def get_node_id(self):
-        return [b'door']
+    def properties(self):
+        return [b'reed']
 
-    def is_open(self, as_str=False):
-        return True if self.switch.value() else False
+    def reed_status(self):
+        return 'open' if self.switch.value() else 'closed'
 
     def get_properties(self):
         return (
-            Property(b'door/$type', b'door', True),
-            Property(b'door/$properties', b'open', True),
-            Property(b'door/open/$settable', b'false', True),
-            Property(b'door/open/$name', b'door', True),
-            Property(b'door/open/$datatype', b'boolean', True),
-            Property(b'door/open/$format', b'true,false', True)
+            Property(b'reed/$name', b'Reed Sensor', True),
+            Property(b'reed/$settable', b'false', True),
+            Property(b'reed/$datatype', b'string', True),
+            Property(b'reed/$format', b'open,closed', True)
         )
 
     def has_update(self):
@@ -43,4 +40,4 @@ class Reed(HomieNode):
         return False
 
     def get_data(self):
-        return (Property(b'door/open', self.is_open(), True),)
+        return (Property(b'reed', self.is_open(), True),)

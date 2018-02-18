@@ -45,7 +45,7 @@ class Relay(HomieNode):
     def __str__(self):
         pass
 
-    def get_node_id(self):
+    def get_node_properties(self):
         return [b'relay[1-{}]'.format(len(self.relais))]
 
     def get_properties(self):

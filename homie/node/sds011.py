@@ -48,38 +48,34 @@ class SDS011(HomieNode):
     def __str__(self):
         return 'SDS011: PM 2.5 = {}, PM 10 = {}'.format(self.pm25, self.pm10)
 
-    def get_node_id(self):
+    def get_node_properties(self):
         return [b'pm25', b'pm10', b'packet_status']
 
     def get_properties(self):
         return (
-            Property(b'pm25/$type', b'pm25', True),
-            Property(b'pm25/$properties', b'concentration', True),
-            Property(b'pm25/concentration/$settable', b'false', True),
-            Property(b'pm25/concentration/$unit', b'mg/m3', True),
-            Property(b'pm25/concentration/$datatype', b'float', True),
-            Property(b'pm25/concentration/$format', b'20.0:60', True),
+            Property(b'pm25/$name', b'pm25 sensor', True),
+            Property(b'pm25/$settable', b'false', True),
+            Property(b'pm25/$unit', b'mg/m3', True),
+            Property(b'pm25/$datatype', b'float', True),
+            Property(b'pm25/$format', b'20.0:60', True),
 
-            Property(b'pm10/$type', b'pm10', True),
-            Property(b'pm10/$properties', b'concentration', True),
-            Property(b'pm10/concentration/$settable', b'false', True),
-            Property(b'pm10/concentration/$unit', b'mg/m3', True),
-            Property(b'pm10/concentration/$datatype', b'float', True),
-            Property(b'pm10/concentration/$format', b'20.0:60', True),
+            Property(b'pm10/$name', b'pm10 sensor', True),
+            Property(b'pm10//$settable', b'false', True),
+            Property(b'pm10//$unit', b'mg/m3', True),
+            Property(b'pm10//$datatype', b'float', True),
+            Property(b'pm10//$format', b'20.0:60', True),
 
-            Property(b'packet_status/$type', b'pm10', True),
-            Property(b'packet_status/$properties', b'valid', True),
-            Property(b'packet_status/valid/$settable', b'false', True),
-            Property(b'packet_status/valid/$unit', b'Boolean', True),
-            Property(b'packet_status/valid/$datatype', b'boolean', True),
-            Property(b'packet_status/valid/$format', b'20.0:60', True)
+            Property(b'packet_status/$name', b'pm10 packet status', True),
+            Property(b'packet_status/$settable', b'false', True),
+            Property(b'packet_status/$datatype', b'boolean', True),
+            Property(b'packet_status/$format', b'20.0:60', True),
         )
 
     def get_data(self):
         return (
-            Property(b'pm25/concentration', self.pm25, True),
-            Property(b'pm10/concentration', self.pm10, True),
-            Property(b'packet_status/valid', self.packet_status, True)
+            Property(b'pm25', self.pm25, True),
+            Property(b'pm10', self.pm10, True),
+            Property(b'packet_status', self.packet_status, True)
         )
 
     def make_command(self, cmd, mode, param):

@@ -12,18 +12,17 @@ class PIR(HomieNode):
         self.last_pir_state = 0
 
     def __str__(self):
-        return 'Last PIR State = {}'.format(self.last_pir_state)
+        return 'Last motion State = {}'.format(self.last_pir_state)
 
-    def get_node_id(self):
-        return [b'pir']
+    def get_node_properties(self):
+        return [b'motion']
 
     def get_properties(self):
         return (
-            Property(b'pir/$type', b'pir', True),
-            Property(b'pir/$properties', b'motion', True),
-            Property(b'pir/motion/$settable', b'false', True),
-            Property(b'pir/motion/$datatype', b'boolean', True),
-            Property(b'pir/motion/$format', b'true,false', True)
+            Property(b'motion/$name', b'PIR Motion Sensor', True),
+            Property(b'motion/$settable', b'false', True),
+            Property(b'motion/$datatype', b'boolean', True),
+            Property(b'motion/$format', b'true,false', True),
         )
 
     def has_update(self):
@@ -35,4 +34,4 @@ class PIR(HomieNode):
 
     def get_data(self):
         payload = 'true' if self.last_pir_state == 1 else 'false'
-        return (Property(b'pir/motion', payload, True),)
+        return (Property(b'motion', payload, True),)
